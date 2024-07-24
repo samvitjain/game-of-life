@@ -1,5 +1,6 @@
 <template>
   <div class="container mt-4">
+    <h1 class="text-center mb-4">Conway's Game of Life</h1>
     <div class="text-center mb-3">
       <button class="btn btn-primary" @click="startGame">Start</button>
       <button class="btn btn-secondary" @click="stopGame">Stop</button>
@@ -9,6 +10,15 @@
     <div class="info mb-3">
       <p>Current Generation: {{ generation }}</p>
       <p>Population: {{ population }}</p>
+      <p>Speed: {{ intervalSpeed }} ms</p>
+      <input 
+        type="range" 
+        min="50" 
+        max="1000" 
+        step="50" 
+        v-model="intervalSpeed" 
+        @input="updateSpeed"
+      />
     </div>
     <div class="grid">
       <div
@@ -29,6 +39,7 @@ export default {
     const grid = ref(Array(900).fill(false)); // 30x30 grid
     const generation = ref(0);
     const interval = ref(null);
+    const intervalSpeed = ref(150); // Default speed
 
     const toggleCell = (index) => {
       grid.value[index] = !grid.value[index];
@@ -39,7 +50,7 @@ export default {
       interval.value = setInterval(() => {
         nextGeneration();
         generation.value += 1;
-      }, 100);
+      }, intervalSpeed.value);
     };
 
     const stopGame = () => {
@@ -53,7 +64,7 @@ export default {
     };
 
     const randomizeGrid = () => {
-      grid.value = grid.value.map(() => Math.random() < 0.3); // 20% chance to be alive
+      grid.value = grid.value.map(() => Math.random() < 0.3); // 30% chance to be alive
     };
 
     const nextGeneration = () => {
@@ -79,6 +90,13 @@ export default {
       grid.value = newGrid;
     };
 
+    const updateSpeed = () => {
+      if (interval.value) {
+        stopGame();
+        startGame();
+      }
+    };
+
     const population = computed(() => grid.value.filter(cell => cell).length);
 
     onUnmounted(() => {
@@ -89,11 +107,13 @@ export default {
       grid,
       generation,
       population,
+      intervalSpeed,
       toggleCell,
       startGame,
       stopGame,
       clearGrid,
-      randomizeGrid
+      randomizeGrid,
+      updateSpeed
     };
   }
 };
@@ -119,7 +139,7 @@ export default {
   width: 20px;
   height: 20px;
   background-color: transparent; /* Dead cells are transparent */
-  border: 1px solid #ddd;
+  box-shadow: 0 0 0.2px 0.2px white; 
 }
 
 .cell.alive {

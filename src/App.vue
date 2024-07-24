@@ -17,5 +17,7 @@ export default {
 </script>
 
 <style>
-/* Add any global styles here */
+#app {
+  background: linear-gradient(to bottom right, #ff7e5f, #feb47b);
+}
 </style>
