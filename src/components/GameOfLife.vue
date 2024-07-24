@@ -2,8 +2,7 @@
   <div class="container-fluid">
     <h3 class="text-center" style="color: aliceblue;">Conway's Game of Life</h3>
     <div class="text-center mb-3">
-      <button class="btn btn-control" @click="startGame">Start</button>
-      <button class="btn btn-control" @click="stopGame">Stop</button>
+      <button class="btn btn-control" @click="toggleGame">{{ isRunning ? 'Stop' : 'Start' }}</button>
       <button class="btn btn-control" @click="clearGrid">Clear</button>
       <button class="btn btn-control" @click="randomizeGrid">Randomize</button>
     </div>
@@ -44,9 +43,18 @@ export default {
     const generation = ref(0);
     const interval = ref(null);
     const intervalSpeed = ref(150); // Default speed
+    const isRunning = ref(false);
 
     const toggleCell = (index) => {
       grid.value[index] = !grid.value[index];
+    };
+
+    const toggleGame = () => {
+      if (isRunning.value) {
+        stopGame();
+      } else {
+        startGame();
+      }
     };
 
     const startGame = () => {
@@ -55,11 +63,13 @@ export default {
         nextGeneration();
         generation.value += 1;
       }, intervalSpeed.value);
+      isRunning.value = true;
     };
 
     const stopGame = () => {
       clearInterval(interval.value);
       interval.value = null;
+      isRunning.value = false;
     };
 
     const clearGrid = () => {
@@ -113,11 +123,13 @@ export default {
       population,
       intervalSpeed,
       toggleCell,
+      toggleGame,
       startGame,
       stopGame,
       clearGrid,
       randomizeGrid,
-      updateSpeed
+      updateSpeed,
+      isRunning
     };
   }
 };
