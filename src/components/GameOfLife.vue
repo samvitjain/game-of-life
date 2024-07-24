@@ -1,23 +1,10 @@
 <template>
   <div class="container-fluid">
-    <h3 class="text-center" style="color: aliceblue;">Conway's Game of Life</h3>
-    <div class="text-center mb-3">
+    <h4 class="text-center my-2" style="color: aliceblue;">Conway's Game of Life</h4>
+    <div class="d-flex justify-content-center text-center my-3">
       <button class="btn btn-control" @click="toggleGame">{{ isRunning ? 'Stop' : 'Start' }}</button>
       <button class="btn btn-control" @click="clearGrid">Clear</button>
       <button class="btn btn-control" @click="randomizeGrid">Randomize</button>
-    </div>
-    <div class="info mb-3 text-center">
-      <p>Generation: {{ generation }}</p>
-      <p>Population: {{ population }}</p>
-      <p>Speed: {{ intervalSpeed }} ms</p>
-      <input 
-        type="range" 
-        min="50" 
-        max="1000" 
-        step="50" 
-        v-model="intervalSpeed" 
-        @input="updateSpeed"
-      />
     </div>
     <div class="grid-container">
       <div class="grid">
@@ -28,6 +15,15 @@
           @click="toggleCell(index)"
         ></div>
       </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="mx-3 my-2">Generation: {{ generation }}</div>
+      <div class="mx-3 my-2">Population: {{ population }}</div>
+    </div>
+    <div class="d-flex justify-content-center align-items-center">
+      <p class="my-2">Speed: {{ intervalSpeed }} ms</p>
+      <button class="btn btn-control" @click="decreaseSpeed">&lt;</button>
+      <button class="btn btn-control" @click="increaseSpeed">&gt;</button>
     </div>
   </div>
 </template>
@@ -111,6 +107,20 @@ export default {
       }
     };
 
+    const increaseSpeed = () => {
+      if (intervalSpeed.value > 50) {
+        intervalSpeed.value -= 50;
+        updateSpeed();
+      }
+    };
+
+    const decreaseSpeed = () => {
+      if (intervalSpeed.value < 1000) {
+        intervalSpeed.value += 50;
+        updateSpeed();
+      }
+    };
+
     const population = computed(() => grid.value.filter(cell => cell).length);
 
     onUnmounted(() => {
@@ -128,7 +138,8 @@ export default {
       stopGame,
       clearGrid,
       randomizeGrid,
-      updateSpeed,
+      increaseSpeed,
+      decreaseSpeed,
       isRunning
     };
   }
