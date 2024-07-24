@@ -2,13 +2,13 @@
   <div class="container-fluid">
     <h3 class="text-center" style="color: aliceblue;">Conway's Game of Life</h3>
     <div class="text-center mb-3">
-      <button class="btn btn-primary" @click="startGame">Start</button>
-      <button class="btn btn-secondary" @click="stopGame">Stop</button>
-      <button class="btn btn-danger" @click="clearGrid">Clear</button>
-      <button class="btn btn-info" @click="randomizeGrid">Randomize</button>
+      <button class="btn btn-control" @click="startGame">Start</button>
+      <button class="btn btn-control" @click="stopGame">Stop</button>
+      <button class="btn btn-control" @click="clearGrid">Clear</button>
+      <button class="btn btn-control" @click="randomizeGrid">Randomize</button>
     </div>
     <div class="info mb-3 text-center">
-      <p>Current Generation: {{ generation }}</p>
+      <p>Generation: {{ generation }}</p>
       <p>Population: {{ population }}</p>
       <p>Speed: {{ intervalSpeed }} ms</p>
       <input 
@@ -142,17 +142,31 @@ export default {
 .grid {
   display: grid;
   grid-template-columns: repeat(60, 10px);
-  gap: 0; /* Remove spacing between cells */
+  gap: 0; 
 }
 
 .cell {
   width: 10px;
   height: 10px;
-  background-color: transparent; /* Dead cells are transparent */
+  background-color: transparent; 
   box-shadow: 0 0 0.2px 0.2px white; 
 }
 
 .cell.alive {
-  background-color: white; /* Alive cells are white */
+  background-color: white; 
+}
+
+.btn-control {
+  background-color: transparent; 
+  border: 1px solid rgba(255, 255, 255, 0.5); 
+  color: rgba(255, 255, 255, 0.8); 
+  margin: 0 5px; 
+  padding: 5px 10px; 
+  font-size: 12px;
+  transition: background-color 0.3s, color 0.3s; 
+}
+
+.btn-control:hover {
+  background-color: rgba(255, 255, 255, 0.1); 
 }
 </style>
