@@ -8,12 +8,8 @@
     </div>
     <div class="grid-container">
       <div class="grid">
-        <div
-          v-for="(cell, index) in grid"
-          :key="index"
-          :class="['cell', { alive: cell }]"
-          @click="toggleCell(index)"
-        ></div>
+        <div v-for="(cell, index) in grid" :key="index" :class="['cell', { alive: cell }]" @click="toggleCell(index)">
+        </div>
       </div>
     </div>
     <div class="d-flex justify-content-center">
@@ -83,13 +79,13 @@ export default {
         const x = i % cols;
         const y = Math.floor(i / cols);
         const neighbors = [
-          [x-1, y-1], [x, y-1], [x+1, y-1],
-          [x-1, y],           [x+1, y],
-          [x-1, y+1], [x, y+1], [x+1, y+1]
+          [x - 1, y - 1], [x, y - 1], [x + 1, y - 1],
+          [x - 1, y], [x + 1, y],
+          [x - 1, y + 1], [x, y + 1], [x + 1, y + 1]
         ].filter(([nx, ny]) => nx >= 0 && ny >= 0 && nx < cols && ny < rows);
-        
+
         const aliveNeighbors = neighbors.filter(([nx, ny]) => grid.value[ny * cols + nx]).length;
-        
+
         if (grid.value[i] && (aliveNeighbors < 2 || aliveNeighbors > 3)) {
           newGrid[i] = false;
         }
@@ -149,7 +145,10 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-.container-fluid, .info, .grid, .cell {
+.container-fluid,
+.info,
+.grid,
+.cell {
   font-family: 'Press Start 2P', cursive;
 }
 
@@ -165,31 +164,31 @@ export default {
 .grid {
   display: grid;
   grid-template-columns: repeat(60, 10px);
-  gap: 0; 
+  gap: 0;
 }
 
 .cell {
   width: 10px;
   height: 10px;
-  background-color: transparent; 
-  box-shadow: 0 0 0.2px 0.2px white; 
+  background-color: transparent;
+  box-shadow: 0 0 0.2px 0.2px white;
 }
 
 .cell.alive {
-  background-color: white; 
+  background-color: white;
 }
 
 .btn-control {
-  background-color: transparent; 
-  border: 1px solid rgba(255, 255, 255, 0.5); 
-  color: rgba(255, 255, 255, 0.8); 
-  margin: 0 5px; 
-  padding: 5px 10px; 
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 5px;
+  padding: 5px 10px;
   font-size: 12px;
-  transition: background-color 0.3s, color 0.3s; 
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .btn-control:hover {
-  background-color: rgba(255, 255, 255, 0.1); 
+  background-color: rgba(255, 255, 255, 0.1);
 }
 </style>
