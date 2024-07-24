@@ -120,10 +120,6 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  background: linear-gradient(to bottom right, #ff7e5f, #feb47b);
-  min-height: 100vh;
-}
 
 .info {
   color: #fff;
