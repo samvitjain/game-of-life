@@ -1,13 +1,13 @@
 <template>
-  <div class="container mt-4">
-    <h1 class="text-center mb-4">Conway's Game of Life</h1>
+  <div class="container-fluid">
+    <h1 class="text-center">Conway's Game of Life</h1>
     <div class="text-center mb-3">
       <button class="btn btn-primary" @click="startGame">Start</button>
       <button class="btn btn-secondary" @click="stopGame">Stop</button>
       <button class="btn btn-danger" @click="clearGrid">Clear</button>
       <button class="btn btn-info" @click="randomizeGrid">Randomize</button>
     </div>
-    <div class="info mb-3">
+    <div class="info mb-3 text-center">
       <p>Current Generation: {{ generation }}</p>
       <p>Population: {{ population }}</p>
       <p>Speed: {{ intervalSpeed }} ms</p>
@@ -20,13 +20,15 @@
         @input="updateSpeed"
       />
     </div>
-    <div class="grid">
-      <div
-        v-for="(cell, index) in grid"
-        :key="index"
-        :class="['cell', { alive: cell }]"
-        @click="toggleCell(index)"
-      ></div>
+    <div class="grid-container">
+      <div class="grid">
+        <div
+          v-for="(cell, index) in grid"
+          :key="index"
+          :class="['cell', { alive: cell }]"
+          @click="toggleCell(index)"
+        ></div>
+      </div>
     </div>
   </div>
 </template>
@@ -36,7 +38,9 @@ import { ref, onUnmounted, computed } from 'vue';
 
 export default {
   setup() {
-    const grid = ref(Array(900).fill(false)); // 30x30 grid
+    const rows = 60;
+    const cols = 60;
+    const grid = ref(Array(rows * cols).fill(false));
     const generation = ref(0);
     const interval = ref(null);
     const intervalSpeed = ref(150); // Default speed
@@ -59,7 +63,7 @@ export default {
     };
 
     const clearGrid = () => {
-      grid.value = Array(900).fill(false);
+      grid.value = Array(rows * cols).fill(false);
       generation.value = 0;
     };
 
@@ -69,16 +73,16 @@ export default {
 
     const nextGeneration = () => {
       const newGrid = [...grid.value];
-      for (let i = 0; i < 900; i++) {
-        const x = i % 30;
-        const y = Math.floor(i / 30);
+      for (let i = 0; i < rows * cols; i++) {
+        const x = i % cols;
+        const y = Math.floor(i / cols);
         const neighbors = [
           [x-1, y-1], [x, y-1], [x+1, y-1],
           [x-1, y],           [x+1, y],
           [x-1, y+1], [x, y+1], [x+1, y+1]
-        ].filter(([nx, ny]) => nx >= 0 && ny >= 0 && nx < 30 && ny < 30);
+        ].filter(([nx, ny]) => nx >= 0 && ny >= 0 && nx < cols && ny < rows);
         
-        const aliveNeighbors = neighbors.filter(([nx, ny]) => grid.value[ny * 30 + nx]).length;
+        const aliveNeighbors = neighbors.filter(([nx, ny]) => grid.value[ny * cols + nx]).length;
         
         if (grid.value[i] && (aliveNeighbors < 2 || aliveNeighbors > 3)) {
           newGrid[i] = false;
@@ -120,20 +124,37 @@ export default {
 </script>
 
 <style scoped>
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+}
+
+.container {
+  text-align: center;
+  margin: 0 auto;
+}
 
 .info {
   color: #fff;
 }
 
+.grid-container {
+  display: flex;
+  justify-content: center;
+}
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(30, 20px);
+  grid-template-columns: repeat(60, 10px);
   gap: 0; /* Remove spacing between cells */
 }
 
 .cell {
-  width: 20px;
-  height: 20px;
+  width: 10px;
+  height: 10px;
   background-color: transparent; /* Dead cells are transparent */
   box-shadow: 0 0 0.2px 0.2px white; 
 }
