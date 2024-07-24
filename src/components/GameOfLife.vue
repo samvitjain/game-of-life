@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <h1 class="text-center">Conway's Game of Life</h1>
+    <h3 class="text-center" style="color: aliceblue;">Conway's Game of Life</h3>
     <div class="text-center mb-3">
       <button class="btn btn-primary" @click="startGame">Start</button>
       <button class="btn btn-secondary" @click="stopGame">Stop</button>
@@ -124,17 +124,10 @@ export default {
 </script>
 
 <style scoped>
-body, html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-}
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-.container {
-  text-align: center;
-  margin: 0 auto;
+.container-fluid, .info, .grid, .cell {
+  font-family: 'Press Start 2P', cursive;
 }
 
 .info {
