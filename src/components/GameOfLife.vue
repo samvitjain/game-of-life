@@ -5,6 +5,10 @@
       <button class="btn btn-control" @click="toggleGame">{{ isRunning ? 'Stop' : 'Start' }}</button>
       <button class="btn btn-control" @click="clearGrid">Clear</button>
       <button class="btn btn-control" @click="randomizeGrid">Randomize</button>
+      <select class="btn btn-control" @change="selectPattern($event)">
+        <option value="">Select Pattern</option>
+        <option v-for="pattern in patterns" :key="pattern.name" :value="pattern.name">{{ pattern.name }}</option>
+      </select>
     </div>
     <div class="grid-container">
       <div class="grid">
@@ -26,6 +30,7 @@
 
 <script>
 import { ref, onUnmounted, computed } from 'vue';
+import patterns from './config.json';
 
 export default {
   setup() {
@@ -123,6 +128,16 @@ export default {
       stopGame();
     });
 
+    const selectPattern = (event) => {
+      const selectedPattern = patterns.find(pattern => pattern.name === event.target.value);
+      if (selectedPattern) {
+        clearGrid();
+        selectedPattern.pattern.forEach(([x, y]) => {
+          grid.value[y * cols + x] = true;
+        });
+      }
+    };
+
     return {
       grid,
       generation,
@@ -136,7 +151,9 @@ export default {
       randomizeGrid,
       increaseSpeed,
       decreaseSpeed,
-      isRunning
+      isRunning,
+      selectPattern,
+      patterns
     };
   }
 };
@@ -190,5 +207,10 @@ export default {
 
 .btn-control:hover {
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn.btn-control option {
+  background-color: #feb47b;
+  color: white;
 }
 </style>
