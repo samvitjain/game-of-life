@@ -9,6 +9,7 @@
         <option value="">Select Pattern</option>
         <option v-for="pattern in patterns" :key="pattern.name" :value="pattern.name">{{ pattern.name }}</option>
       </select>
+      <button class="btn btn-control" @click="logLiveCells">Log Live Cells</button> <!-- New Button -->
     </div>
     <div class="grid-container">
       <div class="grid">
@@ -138,6 +139,18 @@ export default {
       }
     };
 
+    const logLiveCells = () => {
+      const liveCells = [];
+      for (let i = 0; i < rows * cols; i++) {
+        if (grid.value[i]) {
+          const x = i % cols;
+          const y = Math.floor(i / cols);
+          liveCells.push([x, y]);
+        }
+      }
+      console.log(liveCells);
+    };
+
     return {
       grid,
       generation,
@@ -153,11 +166,13 @@ export default {
       decreaseSpeed,
       isRunning,
       selectPattern,
-      patterns
+      patterns,
+      logLiveCells
     };
   }
 };
 </script>
+
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
