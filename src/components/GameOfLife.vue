@@ -9,7 +9,7 @@
         <option value="">Select Pattern</option>
         <option v-for="pattern in patterns" :key="pattern.name" :value="pattern.name">{{ pattern.name }}</option>
       </select>
-      <button class="btn btn-control" @click="logLiveCells">Log Live Cells</button> <!-- New Button -->
+      <!-- <button class="btn btn-control" @click="logLiveCells">Log Live Cells</button>  -->
     </div>
     <div class="grid-container">
       <div class="grid">
