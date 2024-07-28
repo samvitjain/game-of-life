@@ -17,14 +17,16 @@
         </div>
       </div>
     </div>
-    <div class="d-flex justify-content-center">
-      <div class="mx-3 my-2">Generation: {{ generation }}</div>
-      <div class="mx-3 my-2">Population: {{ population }}</div>
+    <div class="row justify-content-center text-center my-2">
+      <div class="col-6 col-sm-3 mx-3 my-1">Generation: {{ generation }}</div>
+      <div class="col-6 col-sm-3 mx-3 my-1">Population: {{ population }}</div>
     </div>
-    <div class="d-flex justify-content-center align-items-center">
-      <p class="my-2">Speed: {{ intervalSpeed }} ms</p>
-      <button class="btn btn-control m-1" @click="decreaseSpeed">&lt;</button>
-      <button class="btn btn-control m-1" @click="increaseSpeed">&gt;</button>
+    <div class="row justify-content-center text-center align-items-center my-2">
+      <div class="col-12 col-sm-auto my-1">Speed: {{ intervalSpeed }} ms</div>
+      <div class="col-12 col-sm-auto d-flex justify-content-center align-items-center my-1">
+        <button class="btn btn-control mx-1" @click="decreaseSpeed">&lt;</button>
+        <button class="btn btn-control mx-1" @click="increaseSpeed">&gt;</button>
+      </div>
     </div>
   </div>
 </template>
@@ -265,6 +267,10 @@ export default {
 
   .container-fluid h4 {
     font-size: 14px;
+  }
+
+  .grid-container {
+    overflow-x: auto;
   }
 }
 </style>
