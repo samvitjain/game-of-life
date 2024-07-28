@@ -1,11 +1,11 @@
 <template>
   <div class="container-fluid">
     <h4 class="text-center my-2" style="color: aliceblue;">Conway's Game of Life</h4>
-    <div class="d-flex justify-content-center text-center my-3">
-      <button class="btn btn-control" @click="toggleGame">{{ isRunning ? 'Stop' : 'Start' }}</button>
-      <button class="btn btn-control" @click="clearGrid">Clear</button>
-      <button class="btn btn-control" @click="randomizeGrid">Randomize</button>
-      <select class="btn btn-control" @change="selectPattern($event)">
+    <div class="d-flex justify-content-center text-center my-3 flex-wrap">
+      <button class="btn btn-control m-1" @click="toggleGame">{{ isRunning ? 'Stop' : 'Start' }}</button>
+      <button class="btn btn-control m-1" @click="clearGrid">Clear</button>
+      <button class="btn btn-control m-1" @click="randomizeGrid">Randomize</button>
+      <select class="btn btn-control m-1" @change="selectPattern($event)">
         <option value="">Select Pattern</option>
         <option v-for="pattern in patterns" :key="pattern.name" :value="pattern.name">{{ pattern.name }}</option>
       </select>
@@ -23,8 +23,8 @@
     </div>
     <div class="d-flex justify-content-center align-items-center">
       <p class="my-2">Speed: {{ intervalSpeed }} ms</p>
-      <button class="btn btn-control" @click="decreaseSpeed">&lt;</button>
-      <button class="btn btn-control" @click="increaseSpeed">&gt;</button>
+      <button class="btn btn-control m-1" @click="decreaseSpeed">&lt;</button>
+      <button class="btn btn-control m-1" @click="increaseSpeed">&gt;</button>
     </div>
   </div>
 </template>
@@ -173,7 +173,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
@@ -195,7 +194,7 @@ export default {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(60, 10px);
+  grid-template-columns: repeat(60, minmax(5px, 10px));
   gap: 0;
 }
 
@@ -227,5 +226,45 @@ export default {
 .btn.btn-control option {
   background-color: #feb47b;
   color: white;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(60, 8px);
+  }
+
+  .cell {
+    width: 8px;
+    height: 8px;
+  }
+
+  .btn-control {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+
+  .container-fluid h4 {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(60, 5px);
+  }
+
+  .cell {
+    width: 5px;
+    height: 5px;
+  }
+
+  .btn-control {
+    font-size: 8px;
+    padding: 2px 6px;
+  }
+
+  .container-fluid h4 {
+    font-size: 14px;
+  }
 }
 </style>
