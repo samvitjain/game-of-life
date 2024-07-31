@@ -1,6 +1,16 @@
 <template>
   <div class="container-fluid">
-    <h4 class="text-center my-2" style="color: aliceblue;">Conway's Game of Life</h4>
+    <h4 class="text-center my-2" style="color: aliceblue;" @click="showVideo = true">Conway's Game of Life ?
+    </h4>
+
+    <div v-if="showVideo" class="video-modal-overlay" @click.self="showVideo = false">
+      <iframe width="100%" height="50%"
+        src="https://www.youtube.com/embed/kic2yqJ_Gs0?si=SVuy8B6QQsICkBQS&amp;controls=0" title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+
     <div class="d-flex justify-content-center text-center my-3 flex-wrap">
       <button class="btn btn-control m-1" @click="toggleGame">{{ isRunning ? 'Stop' : 'Start' }}</button>
       <button class="btn btn-control m-1" @click="clearGrid">Clear</button>
@@ -44,6 +54,7 @@ export default {
     const interval = ref(null);
     const intervalSpeed = ref(150); // Default speed
     const isRunning = ref(false);
+    const showVideo = ref(false);
 
     const toggleCell = (index) => {
       grid.value[index] = !grid.value[index];
@@ -169,11 +180,13 @@ export default {
       isRunning,
       selectPattern,
       patterns,
-      logLiveCells
+      logLiveCells,
+      showVideo,
     };
   }
 };
 </script>
+
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
@@ -272,5 +285,18 @@ export default {
   .grid-container {
     overflow-x: auto;
   }
+}
+
+.video-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 </style>
