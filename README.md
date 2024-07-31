@@ -6,7 +6,7 @@ This project provides a simple implementation of Conway's Game of Life using Vue
 
 Here's a video tutorial explaining the concepts of Conway's Game of Life and how to implement it:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/kic2yqJ_Gs0?si=b8Gha5Ayel6LMSuf&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[![Conway's Game of Life](https://img.youtube.com/vi/kic2yqJ_Gs0/0.jpg)](https://youtu.be/kic2yqJ_Gs0?si=qGam7PtuWWgvNmP8)
 
 ## What is Conway's Game of Life?
 
