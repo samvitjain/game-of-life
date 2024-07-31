@@ -4,7 +4,7 @@
     </h4>
 
     <div v-if="showVideo" class="video-modal-overlay" @click.self="showVideo = false">
-      <iframe width="100%" height="50%"
+      <iframe width="100%" height="35%"
         src="https://www.youtube.com/embed/kic2yqJ_Gs0?si=SVuy8B6QQsICkBQS&amp;controls=0" title="YouTube video player"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
