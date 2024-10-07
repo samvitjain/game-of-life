@@ -1,7 +1,12 @@
 <template>
   <div class="container-fluid">
-    <h4 class="text-center my-2" style="color: aliceblue;" @click="showVideo = true">Conway's Game of Life ?
+    <h4 class="text-center my-2" style="color: aliceblue;" @click="showVideo = true">Conway's Game of Life
     </h4>
+
+    <div class="text-center">
+      <button class="btn btn-control my-2" @click="showVideo = true">Play Video</button>
+    </div>
+
 
     <div v-if="showVideo" class="video-modal-overlay" @click.self="showVideo = false">
       <iframe width="100%" height="35%"
